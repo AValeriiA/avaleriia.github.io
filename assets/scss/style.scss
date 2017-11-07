@@ -43,6 +43,7 @@ button.btn-dash-pink{
 header.header {
   position: relative;
   overflow:hidden;
+  background: #08071b;
   .video-wrapper {
     position: relative;
     width: 100%;
@@ -102,11 +103,10 @@ header.header {
       /*transition: .2s ease-in-out;*/
       z-index: 1000;
       position: absolute;
-      padding: 0 0 76px;
-      bottom: -76px;
+      padding: 0 0 50px;
+      bottom: -50px;
       left: 0;
       right: 0;
-      background: #08071b;
       &.video-bottom_fixed {
         position: fixed;
         left: 0;
