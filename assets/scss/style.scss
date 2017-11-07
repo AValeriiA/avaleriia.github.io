@@ -102,10 +102,11 @@ header.header {
       /*transition: .2s ease-in-out;*/
       z-index: 1000;
       position: absolute;
-      bottom: 0;
+      bottom: -50px;
       left: 0;
       right: 0;
       background: #08071b;
+      padding: 0 0 50px;
       &.video-bottom_fixed {
         position: fixed;
         left: 0;
