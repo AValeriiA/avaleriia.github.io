@@ -31,4 +31,18 @@ table {border-collapse: collapse;border-spacing: 0;}
 input, select, textarea { font-family: tahoma; color: #404040; padding: 5px;}
 .clear { clear: both; font-size: 0pt; line-height: 0px; height: 0px;}
 
+button,
+.btn,
+.btn.focus,
+a {
+	box-shadow: none;
+	&:focus,
+	&:active {
+		outline: none;
+		box-shadow: none;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
 /******************/
