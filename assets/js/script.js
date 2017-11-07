@@ -68,5 +68,5 @@ $(document).ready(function () {
     // Bind event listener
     $(window).resize(checkWidth);
 
-  /*$("video.header-video").get(0).play();*/
+  $("video.header-video").get(0).play();
 });
