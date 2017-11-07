@@ -102,11 +102,11 @@ header.header {
       /*transition: .2s ease-in-out;*/
       z-index: 1000;
       position: absolute;
-      bottom: -50px;
+      padding: 0 0 70px;
+      bottom: -70px;
       left: 0;
       right: 0;
       background: #08071b;
-      padding: 0 0 50px;
       &.video-bottom_fixed {
         position: fixed;
         left: 0;
@@ -287,7 +287,7 @@ header.header {
       height: 500px;
     }
     @media (max-width: 375px) {
-      left: calc(50% - 462px);
+      left: calc(50% - 464px);
       height: 330px;
     }
     @media (max-width: 320px) {
