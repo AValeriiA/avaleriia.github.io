@@ -31,12 +31,12 @@ body {
 .main-wrapper{
   overflow: hidden;
   overflow-y: scroll;
-  width: calc(100vw + 17px);
+  /*width: calc(100vw + 17px);*/
   height: 100vh;
   @media (max-width: 991px) {
-    width: 100vw;
+    width: 100%;
     height: auto;
-    overflow: auto;
+    overflow-y: auto;
   }
 }
 
