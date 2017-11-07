@@ -31,7 +31,7 @@ body {
 .main-wrapper{
   overflow: hidden;
   overflow-y: scroll;
-  /*width: calc(100vw + 17px);*/
+  width: calc(100vw + 17px);
   height: 100vh;
   @media (max-width: 991px) {
     width: 100%;
@@ -311,10 +311,11 @@ header.header {
   margin: 10px 0;
 }
 
-section.video-wrap{
+section.video-wrap {
   // min-height: 100vh;
   background: #08071b;
-  .video-top-block{
+  .video-top-block {
+    position: relative;
     padding: 35px 90px;
     text-align: center;
     @media(max-width: 768px){
@@ -331,6 +332,16 @@ section.video-wrap{
         padding-top: 5px;
         color:#612e6b;
       }
+    }
+    &:before {
+      content: '';
+      display: block;
+      background: #08071b;
+      width: 100%;
+      height: 90px;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
     }
   }
   .video-main-layer{
