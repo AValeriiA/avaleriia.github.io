@@ -103,8 +103,7 @@ header.header {
       /*transition: .2s ease-in-out;*/
       z-index: 1000;
       position: absolute;
-      padding: 0 0 50px;
-      bottom: -50px;
+      bottom: 0;
       left: 0;
       right: 0;
       &.video-bottom_fixed {
