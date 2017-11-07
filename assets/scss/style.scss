@@ -99,17 +99,19 @@ header.header {
     }
     .video-bottom{
       // width: 100vw;
-      transition: .2s ease-in-out;
+      /*transition: .2s ease-in-out;*/
       z-index: 1000;
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
+      background: #08071b;
       &.video-bottom_fixed {
         position: fixed;
-        // left: 0;
+        left: 0;
         top: 0;
         bottom: auto;
+        background: transparent;
         // height: 120px;
       }
       .top{
@@ -243,7 +245,7 @@ header.header {
   #headerVideo{
     position: relative;
     padding: 0 0 76px;
-    background: #08071b;
+
     @media (max-width: 991px) {
       padding: 0 0 95px;
     }
@@ -284,7 +286,7 @@ header.header {
       height: 500px;
     }
     @media (max-width: 375px) {
-      left: calc(50% - 453px);
+      left: calc(50% - 462px);
       height: 330px;
     }
     @media (max-width: 320px) {
