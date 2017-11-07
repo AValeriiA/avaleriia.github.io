@@ -346,7 +346,7 @@ section.video-wrap {
   }
   .video-main-layer{
     background: url('../images/video-layer-bd.jpg') top center no-repeat;
-    padding: 40px 90px 90px;
+    padding: 40px 90px 100px;
     @media(max-width:992px){
       background-size:cover;
       padding: 20px 30px 50px;
@@ -501,8 +501,12 @@ section.video-wrap {
       }
       &.smooth-txt{
         color:#6f5eb3;
-        span{
+        a {
           color:#a08af6;
+          &:hover,
+          &:focus {
+            text-decoration: none;
+          }
         }
       }
     }
