@@ -44,5 +44,12 @@ $(document).ready(function () {
     // Bind event listener
     $(window).resize(checkWidth);
 
+    // Activate Carousel
+    $('.carousel').carousel();
+
+    setInterval(function() {
+        //
+    }, 1000);
+
     $("video.header-video").get(0).play();
 });
