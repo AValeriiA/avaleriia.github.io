@@ -1,0 +1,50 @@
+<?php
+
+require_once "kernel.php";
+
+require_once $global['system_root']."vendor/autoload.php";
+require_once "models/SMTPMailer.php";
+
+set_time_limit(3600);
+
+$sql = "SELECT * FROM emails ORDER BY created LIMIT 1";
+$res = $global['pdo']->prepare($sql);
+$res->execute();
+$currentEmail = $res->fetch(PDO::FETCH_ASSOC);
+
+if (!$currentEmail['queued']) {
+    //set email to queued (only one queue can work on email)
+    $sql = "UPDATE emails SET queued = 1 WHERE id = :id";
+    $res = $global['pdo']->prepare($sql);
+    $res->execute([':id' => $currentEmail['id']]);
+
+    //get subscribers
+    $sql = "SELECT * FROM subscribes WHERE notice_delivered is NULL AND active = 1";
+    $res = $global['pdo']->prepare($sql);
+    $res->execute();
+    $subscribers = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($subscribers as $subscribe) {
+        //create email body
+        $html = $currentEmail['body'];
+        $html .= "<br><p>If you want to unsubscribe then click the link below:</p>";
+        $html .= "<a href='".$global['website_root']."api/unSubscribe.php?e=".$subscribe['email']."&c=".$subscribe['code']."'>Unsubscribe from ".$global['website_root']."</a>";
+
+        //send email
+        $mailer = new SMTPMailer();
+        $sent = $mailer->send($subscribe['email'], "New from ".$global['website_root'], $html);
+
+        //save result
+        $sql = "UPDATE subscribes SET notice_delivered = :sent WHERE id = :id";
+        $res = $global['pdo']->prepare($sql);
+        $res->execute([
+            ':sent' => (int)$sent,
+            ':id' => $subscribe['id']
+        ]);
+
+        //unset email queued
+        $sql = "UPDATE emails SET queued = 0 WHERE id = :id";
+        $res = $global['pdo']->prepare($sql);
+        $res->execute([':id' => $currentEmail['id']]);
+    }
+}
