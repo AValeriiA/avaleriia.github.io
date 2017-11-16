@@ -29,6 +29,11 @@
     $noticeUnDelivered = $res->fetch(PDO::FETCH_COLUMN);
 
     $percent = ($noticeDelivered / ($noticeDelivered + $noticeUnDelivered)) * 100;
+
+    $sql = "SELECT * FROM images WHERE thumbnail = 2";
+    $res = $global['pdo']->prepare($sql);
+    $res->execute();
+    $imagesForEmails = $res->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +93,7 @@
                     </div>
                 </div>
                 <div class="col-12 form-group">
-                    <input type="file" class="form-control" name="img[]" multiple>
+                    <input type="file" class="form-control" name="img[]" multiple required>
                 </div>
                 <div class="col-12">
                     <div class="form-group row justify-content-center">
@@ -113,7 +118,7 @@
                     </div>
                 </div>
                 <div class="col-12 form-group">
-                    <input type="file" class="form-control" name="img[]" multiple>
+                    <input type="file" class="form-control" name="img[]" multiple required>
                 </div>
                 <div class="col-12">
                     <div class="form-group row justify-content-center">
@@ -154,15 +159,38 @@
             </div>
         </div>
     </div>
+    <hr>
     <div class="row">
         <div class="col-12">
             <form action="<?php echo $global['website_root'] ?>api/saveSupportEmail.php" method="post">
-                <div class="form-group row justify-content-center" style="margin-top: 50px; margin-bottom: 50px;">
+                <div class="form-group row justify-content-center" style="margin-top: 50px;">
                     <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Support email is:</div>
                     <div class="col-9 col-sm-6 col-lg-4"><input type="email" name="email" class="form-control" value="<?php echo $global['support_email'] ?>" required></div>
                     <button type="submit" id="support-email-save" class="btn btn-primary">Save</button>
                 </div>
             </form>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12" style="margin-top: 50px; margin-bottom: 50px;">
+            <form action="<?php echo $global['website_root'] ?>api/uploadImagesForEmails.php" enctype="multipart/form-data" method="post">
+                <div class="form-group row justify-content-center">
+                    <div class="col-12 col-sm-5 col-md-4 col-lg-3 align-self-center justify-self-end">Upload images for emails:</div>
+                    <div class="col-9 col-sm-6 col-lg-4">
+                        <input type="file" class="form-control" name="img[]" multiple>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+            <div>Already exists images:</div>
+            <div>
+                <select class="form-control" multiple size="10" onchange="copy(this.options[this.selectedIndex].innerHTML)">
+                    <?php foreach ($imagesForEmails as $img) {
+                        echo "<option>".$global['website_root'].'assets/images/forEmail/'.$img['filename']."</option>";
+                    } ?>
+                </select>
+            </div>
         </div>
     </div>
 </div>
@@ -176,6 +204,17 @@
     if (!empty($_GET['msg'])) {
         echo "alert('".$_GET['msg']."');";
     } ?>
+
+    function copy (string) {
+        function handler (event){
+            event.clipboardData.setData('text/plain', string);
+            event.preventDefault();
+            document.removeEventListener('copy', handler, true);
+        }
+
+        document.addEventListener('copy', handler, true);
+        document.execCommand('copy');
+    }
 
     $(document).ready(function () {
         $("#send_email").on("click", function () {

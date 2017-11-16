@@ -170,7 +170,10 @@
               <p>Summer Catchers is an arcade video game with adventure elements about a northern girl and her epic journey to the South an summer warm.</p>
               <div class="line-block"></div>
               <p class="smooth-txt">
-                Developed by Eugene Siryk and Nikolay Zadvorniy Published by <a href="http://www.noodlecake.com/">Noodlecake studios</a><br> OST by <a href="http://geekpilot.ru/">Geek Pilot</a>
+                  Created by <a href="http://faceit-team.com/">FaceIT development</a> team
+              </p>
+              <p class="smooth-txt">
+                Published by <a href="http://www.noodlecake.com/">Noodlecake studios</a><br> OST by <a href="http://geekpilot.ru/">Geek Pilot</a>
               </p>
               <a href="./Summer_Catchers_media.zip" class="btn btn-dash-pink">
                 <img src="./assets/images/mediazip-btn.png" alt="">
