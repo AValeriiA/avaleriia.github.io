@@ -692,3 +692,19 @@ section.contact-wrap{
     }
   }
 }
+
+/* modal swal style */
+.modal-swal-style {
+  color: #f16eeb;
+  border: dashed 2px #f16eeb;
+}
+.modal-swal-style .swal2-title,
+.modal-swal-style .swal2-content {
+  color: #f16eeb !important;
+}
+.modal-swal-btn-style {
+  background: #000;
+  color: #f16eeb;
+  border: dashed 2px #f16eeb;
+  padding: 10px 20px;
+}

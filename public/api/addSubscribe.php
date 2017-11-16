@@ -1,10 +1,8 @@
 <?php
 require_once "../../vendor/autoload.php";
-require_once "../../app/models/SMTPMailer.php";
+require_once "../../app/models/Mailer.php";
 
 require_once "../../app/kernel.php";
-
-header('Location: ' . $global['website_root']);
 
 $object = new stdClass();
 
@@ -40,12 +38,17 @@ if (empty($_POST['email'])){
             $object->success = $res->execute($params);
 
             //create email body
-            $html = "<h1>You subscribed to ".$global['website_root']."</h1>";
+            $sql = "SELECT * FROM emails WHERE is_greeting = 1 ORDER BY created DESC LIMIT 1";
+            $res = $global['pdo']->prepare($sql);
+            $res->execute();
+            $currentGreeting = $res->fetch(PDO::FETCH_ASSOC);
+
+            $html = $currentGreeting['body'];
             $html .= "<p>If you want to unsubscribe then click the link below:</p>";
             $html .= "<a href='".$global['website_root']."api/unSubscribe.php?e=".$_POST['email']."&c=".$code."'>Unsubscribe from ".$global['website_root']."</a>";
 
             //send email
-            $mailer = new SMTPMailer();
+            $mailer = new Mailer($global['smtp_mailer']);
             $object->success = $mailer->send($_POST['email'], "You subscribed to ".$global['website_root']."!", $html);
         }
     }

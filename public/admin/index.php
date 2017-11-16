@@ -1,6 +1,6 @@
 <?php
     require_once "../../vendor/autoload.php";
-    require_once "../../app/models/SMTPMailer.php";
+    require_once "../../app/models/Mailer.php";
 
     require_once "../../app/kernel.php";
     if (!Admin::isLogged()) {
@@ -12,6 +12,23 @@
     $res = $global['pdo']->prepare($sql);
     $res->execute($params);
     $citations = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    $sql = "SELECT * FROM emails WHERE is_greeting = 1 ORDER BY created DESC LIMIT 1";
+    $res = $global['pdo']->prepare($sql);
+    $res->execute();
+    $currentGreeting = $res->fetch(PDO::FETCH_ASSOC);
+
+    $sql = "SELECT count(id) as delivered FROM subscribes WHERE notice_delivered = 1 GROUP BY notice_delivered";
+    $res = $global['pdo']->prepare($sql);
+    $res->execute();
+    $noticeDelivered = $res->fetch(PDO::FETCH_COLUMN);
+
+    $sql = "SELECT count(id) as undelivered FROM subscribes WHERE notice_delivered = 0 GROUP BY notice_delivered";
+    $res = $global['pdo']->prepare($sql);
+    $res->execute();
+    $noticeUnDelivered = $res->fetch(PDO::FETCH_COLUMN);
+
+    $percent = ($noticeDelivered / ($noticeDelivered + $noticeUnDelivered)) * 100;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,13 +129,40 @@
                 <h1>Write an email for subscribers</h1>
             </div>
         </div>
+        <div class="col-12">
+            <div class="form-group row justify-content-center">
+                <button id="edit_msg_tab" class="btn btn-primary">Edit subscription message</button>
+                <button id="new_msg_tab" class="btn btn-secondary" style="margin-left: 10px">Create new email for subscribers</button>
+            </div>
+        </div>
         <div class="col-12 form-group">
-            <textarea class="form-control" rows="12" id="email_text"></textarea>
+            <div id="div_edit_email_text">
+                <textarea class="form-control" rows="12" id="edit_email_text" name="edit_email_text"><?php echo $currentGreeting['body']; ?></textarea>
+            </div>
+            <div id="div_new_email_text">
+                <textarea class="form-control" rows="12" id="new_email_text" name="new_email_text"></textarea>
+            </div>
         </div>
         <div class="col-12">
             <div class="form-group row justify-content-center">
                 <button type="button" class="btn btn-primary" id="send_email">Send</button>
             </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row justify-content-center">
+                Email delivered to <?php echo (int)$percent ?>% of subscribers
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="<?php echo $global['website_root'] ?>api/saveSupportEmail.php" method="post">
+                <div class="form-group row justify-content-center" style="margin-top: 50px; margin-bottom: 50px;">
+                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Support email is:</div>
+                    <div class="col-9 col-sm-6 col-lg-4"><input type="email" name="email" class="form-control" value="<?php echo $global['support_email'] ?>" required></div>
+                    <button type="submit" id="support-email-save" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -126,6 +170,7 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 <script>
     <?php
     if (!empty($_GET['msg'])) {
@@ -135,10 +180,14 @@
     $(document).ready(function () {
         $("#send_email").on("click", function () {
             $("#send_email").prop("disabled", true);
+            var mode = $("#new_msg_tab").hasClass("btn-primary") ? "new" : "edit",
+                body = $("#new_msg_tab").hasClass("btn-primary") ? CKEDITOR.instances.new_email_text.getData() : CKEDITOR.instances.edit_email_text.getData();
+
             $.ajax({
                 url: "<?php echo $global['website_root'].'api/sendToSubscribers.php'?>",
                 data: {
-                    "email": $('#email_text').val()
+                    "mode": mode,
+                    "email": body
                 },
                 type: 'post',
                 success: function (response) {
@@ -153,7 +202,29 @@
                     alert("Server error!");
                 }
             });
-        })
+        });
+
+        $("#new_msg_tab").on("click", function () {
+            $("#div_edit_email_text").hide();
+            $("#div_new_email_text").show();
+            $("#new_msg_tab").removeClass("btn-secondary").addClass("btn-primary");
+            $("#edit_msg_tab").removeClass("btn-primary").addClass("btn-secondary");
+        });
+
+        $("#edit_msg_tab").on("click", function () {
+            $("#div_new_email_text").hide();
+            $("#div_edit_email_text").show();
+            $("#edit_msg_tab").removeClass("btn-secondary").addClass("btn-primary");
+            $("#new_msg_tab").removeClass("btn-primary").addClass("btn-secondary");
+        });
+
+        CKEDITOR.replace('edit_email_text', {
+            allowedContent: true
+        });
+        CKEDITOR.replace('new_email_text', {
+            allowedContent: true
+        });
+        $("#div_new_email_text").hide();
     });
 </script>
 </body>

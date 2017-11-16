@@ -2,7 +2,7 @@
 
 require_once "../../app/kernel.php";
 
-header('Location: ' . $global['website_root']);
+header('Location: ' . $global['website_root'] . '?msg=Unsubscribed');
 
 $object = new stdClass();
 

@@ -20,9 +20,17 @@ $mysqlPass = getenv('MYSQL_PASS');
 global $global;
 
 $global['pdo'] = new PDO("mysql:host=".$mysqlHost."; port=3306; dbname=".$mysqlDatabase.";", $mysqlUser,$mysqlPass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+
+$sql = "SELECT * FROM admins LIMIT 1";
+$res = $global['pdo']->prepare($sql);
+$res->execute();
+$admin = $res->fetch(PDO::FETCH_ASSOC);
+
 $global['system_root'] = getenv("SYSTEM_ROOT_PATH");
 $global['website_root'] = getenv("WEBSITE_ROOT_PATH");
-$global['support_email'] = getenv("SUPPORT_EMAIL");
+$global['support_email'] = $admin['support_email'];
+$global['smtp_mailer'] = getenv("SMTP_MAILER");
 
 // server should keep session data for AT LEAST 1 month
 ini_set('session.gc_maxlifetime', 2592000);

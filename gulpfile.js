@@ -7,8 +7,8 @@ var $ = require('gulp-load-plugins')();
 // ];
 
 var jsSources = ['js/**/*.js'],
-    sassSources = ['assets/scss/**/*.scss'],
-    htmlSources = ['*.html'];
+    sassSources = ['public/assets/scss/**/*.scss'],
+    htmlSources = ['public/*.html'];
 
 gulp.task('sass', function () {
     return gulp.src(sassSources)
@@ -20,7 +20,7 @@ gulp.task('sass', function () {
         .pipe($.autoprefixer({
             browers: ['last 2 versions', 'ie >= 9']
         }))
-        .pipe(gulp.dest('./assets/css'))
+        .pipe(gulp.dest('public/assets/css'))
         // .pipe($.livereload());
 });
 

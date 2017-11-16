@@ -76,4 +76,71 @@ $(document).ready(function () {
     $('.carousel').carousel();
 
     $("video.header-video").get(0).play();
+
+    swal.setDefaults({
+        animation: false,
+        background: "#000",
+        customClass: "modal-swal-style",
+        buttonsStyling: false,
+        confirmButtonClass: "modal-swal-btn-style"
+    });
+
+    $("#contact-form-btn").on("click", function () {
+        $("#contact-form-btn").prop("disabled", true);
+        $.ajax({
+            url: "api/addContact.php",
+            data: {
+                "name": $('#contact_name').val(),
+                "email": $('#contact_email').val(),
+                "message": $('#contact_message').val()
+            },
+            type: 'post',
+            success: function (response) {
+                if (!response.error) {
+                    swal("Succes", "We will respond to you as soon as possible", "success");
+                } else {
+                    swal("ERROR", response.error, "error");
+                }
+                $("#contact-form-btn").prop("disabled", false);
+            },
+            error: function () {
+                swal("Server error!");
+                $("#contact-form-btn").prop("disabled", false);
+            }
+        });
+    });
+
+    $("#newsletter-form-btn").on("click", function () {
+        $("#contact-form-btn").prop("disabled", true);
+        $.ajax({
+            url: "api/addSubscribe.php",
+            data: {
+                "email": $('#newsletter_email').val()
+            },
+            type: 'post',
+            success: function (response) {
+                if (!response.error) {
+                    swal("Succes", "You successfully subscribed", "success");
+                } else {
+                    swal("ERROR", response.error, "error");
+                }
+                $("#contact-form-btn").prop("disabled", false);
+            },
+            error: function () {
+                swal("Server error!");
+                $("#contact-form-btn").prop("disabled", false);
+            }
+        });
+    });
+
+    var query_str = location.search.substr(1),
+        params = query_str.split('&'),
+        msg = params.find(function (elem) {
+            return elem && RegExp(/msg=.*/i).test(elem);
+        });
+
+    if (msg) {
+        var values = msg.split('=');
+        swal(values[1], "", "success");
+    }
 });

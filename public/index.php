@@ -82,13 +82,13 @@
                 </ul>
               </div>
               <div class="col-xl-6 col-lg-6">
-                <form class="newsletter-form" action="api/addSubscribe.php" method="post">
+                <form class="newsletter-form">
                   <div class="d-flex flex-xs-column flex-wrap justify-content-center align-items-center">
                     <div class="f-item">
-                      <input type="email" class="form-control" name="email" placeholder="Email Address">
+                      <input type="email" class="form-control" id="newsletter_email" name="email" placeholder="Email Address">
                     </div>
                     <div class="f-item">
-                      <button type="submit" class="newsletter-btn">
+                      <button type="button" class="newsletter-btn" id="newsletter-form-btn">
                         <img src="./assets/images/newsletter-btn.png" alt="">
                       </button>
                       <!-- <button type="submit" class="btn btn-dash-pink">NEWSLETTER SIGN UP <br><span>PARTICIPATE IN ALPHA TESTING</span></button> -->
@@ -197,24 +197,24 @@
         <div class="col-lg-6 col-md-10 text-center">
           <h3 class="contact-title">Contact</h3>
           <div class="line-block"></div>
-          <form class="contact-form" action="api/addContact.php" method="post">
+          <form class="contact-form">
             <div class="form-group row">
               <div class="col-md-6">
-                <input class="form-control" type="text" name="name" placeholder="Name">
+                <input class="form-control" type="text" name="name" placeholder="Name" id="contact_name">
               </div>
               <div class="col-md-6">
-                <input class="form-control" type="email" name="email" placeholder="Email Address">
+                <input class="form-control" type="email" name="email" placeholder="Email Address" id="contact_email">
               </div>
             </div>
             <div class="form-group">
-              <textarea placeholder="Message" class="form-control" name="message" rows="3"></textarea>
+              <textarea placeholder="Message" class="form-control" name="message" rows="3" id="contact_message"></textarea>
             </div>
-            <button type="submit" class="btn btn-dash-pink">
+            <button type="button" class="btn btn-dash-pink" id="contact-form-btn">
               <img src="./assets/images/send-btn.png" alt="">
             </button>
           </form>
           <div class="line-block"></div>
-          <p class="copyright text-center">@copy; Copyright FaceIT, 2009-2017</p>
+          <p class="copyright text-center">&copy; Copyright FaceIT, 2009-2017</p>
         </div>
       </div>
     </section>
@@ -254,10 +254,10 @@
       </div>
     </div>
   </div>
-
-  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.5/sweetalert2.all.min.js"></script>
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>-->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/1.9.0/jarallax-video.min.js"></script> -->
   <script src="./assets/js/script.js"></script>

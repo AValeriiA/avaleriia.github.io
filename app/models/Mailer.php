@@ -3,21 +3,27 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class SMTPMailer {
+class Mailer {
     private $PHPMailer;
 
-    public function __construct() {
+    public function __construct($isSMTP = true) {
         global $global;
 
         $mailer = new PHPMailer();
+        if ($isSMTP) {
+            //send via SMTP
+            $mailer->isSMTP();
+            $mailer->Host = getenv('SMTP_HOST');
+            $mailer->SMTPAuth = true;
+            $mailer->Username = getenv('SMTP_USER');
+            $mailer->Password = getenv('SMTP_PASS');
+            $mailer->SMTPSecure = 'ssl';
+            $mailer->Port = getenv('SMTP_PORT');
+        } else {
+            //send via standard PHP mail()
+            $mailer->isMail();
+        }
         $mailer->setFrom($global['support_email']);
-        $mailer->isSMTP();
-        $mailer->Host = getenv('SMTP_HOST');
-        $mailer->SMTPAuth = true;
-        $mailer->Username = getenv('SMTP_USER');
-        $mailer->Password = getenv('SMTP_PASS');
-        $mailer->SMTPSecure = 'ssl';
-        $mailer->Port = getenv('SMTP_PORT');
         $mailer->CharSet = 'UTF-8';
         $mailer->isHTML(true);
 

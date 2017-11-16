@@ -1,10 +1,8 @@
 <?php
 require_once "../../vendor/autoload.php";
-require_once "../../app/models/SMTPMailer.php";
+require_once "../../app/models/Mailer.php";
 
 require_once "../../app/kernel.php";
-
-header('Location: ' . $global['website_root']);
 
 $object = new stdClass();
 
@@ -33,7 +31,7 @@ if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['message']))
         $html .= "<p><b>Message: </b>".nl2br(htmlspecialchars($_POST['message']))."</p>";
 
         //send email
-        $mailer = new SMTPMailer();
+        $mailer = new Mailer();
         $object->success = $mailer->send($global['support_email'], "You have a new contact!", $html);
     }
 }
