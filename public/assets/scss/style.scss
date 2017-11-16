@@ -572,12 +572,13 @@ section.contact-wrap{
       }
     }
     .form-control{
-      @include placeholder_color(#b0bcec);
+      @include placeholder_color(#302d5c);
       font-size: 24px;
       padding: 17px 15px;
       border-radius:0;
-      //background: #3c386d;
-      color:#0c034a;
+      background: #534f88;
+      color:#14122b;
+      font-family: 'Corbel';
       @media(max-width: 768px){
         padding: 10px;
       }
