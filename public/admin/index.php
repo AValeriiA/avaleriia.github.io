@@ -8,15 +8,6 @@
         exit;
     }
 
-//remove old files
-$old_files = scandir('../assets/images/thumbnails/');
-chdir('../assets/images/thumbnails/');
-foreach ($old_files as $old_file) {
-    if (!is_dir($old_file)) {
-        unlink($old_file);
-    }
-}exit;
-
     $sql = "SELECT * FROM citations LIMIT 3";
     $res = $global['pdo']->prepare($sql);
     $res->execute($params);
