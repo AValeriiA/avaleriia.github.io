@@ -1,7 +1,7 @@
 <?php
 
 //classes load
-require_once "models/Admin.php";
+require_once __DIR__."/models/Admin.php";
 
 //load env
 $env_arr = file_get_contents(__DIR__ . "/../.env");

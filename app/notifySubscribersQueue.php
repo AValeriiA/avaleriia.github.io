@@ -1,9 +1,9 @@
 <?php
 
-require_once "kernel.php";
+require_once __DIR__."/kernel.php";
 
 require_once __DIR__."/../vendor/autoload.php";
-require_once "models/Mailer.php";
+require_once __DIR__."/models/Mailer.php";
 
 set_time_limit(14400);
 
