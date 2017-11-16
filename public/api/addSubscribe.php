@@ -43,13 +43,15 @@ if (empty($_POST['email'])){
             $res->execute();
             $currentGreeting = $res->fetch(PDO::FETCH_ASSOC);
 
+            $unsubLink = $global['website_root']."api/unSubscribe.php?e=".$_POST['email']."&c=".$code;
+
             $html = $currentGreeting['body'];
             $html .= "<p>If you want to unsubscribe then click the link below:</p>";
-            $html .= "<a href='".$global['website_root']."api/unSubscribe.php?e=".$_POST['email']."&c=".$code."'>Unsubscribe from ".$global['website_root']."</a>";
+            $html .= "<a href='".$unsubLink."'>Unsubscribe from ".$global['website_root']."</a>";
 
             //send email
             $mailer = new Mailer($global['smtp_mailer']);
-            $object->success = $mailer->send($_POST['email'], "You subscribed to ".$global['website_root']."!", $html);
+            $object->success = $mailer->send($_POST['email'], "You subscribed to ".$global['website_root']."!", $html, $unsubLink);
         }
     }
 }

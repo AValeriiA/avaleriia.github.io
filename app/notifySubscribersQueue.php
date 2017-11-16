@@ -2,7 +2,7 @@
 
 require_once "kernel.php";
 
-require_once "../vendor/autoload.php";
+require_once __DIR__."/../vendor/autoload.php";
 require_once "models/Mailer.php";
 
 set_time_limit(14400);
@@ -19,16 +19,18 @@ if (!$currentEmail['queued']) {
     $res->execute([':id' => $currentEmail['id']]);
 
     //get subscribers
-    $sql = "SELECT * FROM subscribes WHERE notice_delivered is NULL AND active = 1 AND created < :emailCreated";
+    $sql = "SELECT * FROM subscribes WHERE notice_delivered is NULL AND active = 1 AND created < :emailCreated LIMIT 1";
     $res = $global['pdo']->prepare($sql);
     $res->execute([':emailCreated' => $currentEmail['created']]);
     $subscribers = $res->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($subscribers as $subscribe) {
+        $unsubLink = $global['website_root']."api/unSubscribe.php?e=".$subscribe['email']."&c=".$subscribe['code'];
+
         //create email body
         $html = $currentEmail['body'];
         $html .= "<br><p>If you want to unsubscribe then click the link below:</p>";
-        $html .= "<a href='".$global['website_root']."api/unSubscribe.php?e=".$subscribe['email']."&c=".$subscribe['code']."'>Unsubscribe from ".$global['website_root']."</a>";
+        $html .= "<a href='".$unsubLink."'>Unsubscribe from ".$global['website_root']."</a>";
 
         //send email
         $mailer = new Mailer($global['smtp_mailer']);

@@ -30,10 +30,14 @@ class Mailer {
         $this->PHPMailer = $mailer;
     }
 
-    public function send($mail_to, $subject, $body) {
+    public function send($mail_to, $subject, $body, $unsubLink = false) {
         $this->PHPMailer->addAddress($mail_to);
         $this->PHPMailer->Subject = $subject;
         $this->PHPMailer->Body = $body;
+        if ($unsubLink) {
+            $this->PHPMailer->addCustomHeader('List-Unsubscribe', '<'.$unsubLink.'>');
+            $this->PHPMailer->addCustomHeader('Precedence', 'bulk');
+        }
 
         return $this->PHPMailer->send();
     }
