@@ -170,7 +170,7 @@
               <p>Summer Catchers is an arcade video game with adventure elements about a northern girl and her epic journey to the South an summer warm.</p>
               <div class="line-block"></div>
               <p class="smooth-txt">
-                  Created by <a href="http://faceit-team.com/">FaceIT development</a> team
+                  Created by <a href="http://faceit-team.com/">FaceIT</a> development team
               </p>
               <p class="smooth-txt">
                 Published by <a href="http://www.noodlecake.com/">Noodlecake studios</a><br> OST by <a href="http://geekpilot.ru/">Geek Pilot</a>
