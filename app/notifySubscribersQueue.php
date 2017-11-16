@@ -2,7 +2,7 @@
 
 require_once "kernel.php";
 
-require_once $global['system_root']."vendor/autoload.php";
+require_once "../vendor/autoload.php";
 require_once "models/Mailer.php";
 
 set_time_limit(14400);

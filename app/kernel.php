@@ -27,7 +27,6 @@ $res = $global['pdo']->prepare($sql);
 $res->execute();
 $admin = $res->fetch(PDO::FETCH_ASSOC);
 
-$global['system_root'] = getenv("SYSTEM_ROOT_PATH");
 $global['website_root'] = getenv("WEBSITE_ROOT_PATH");
 $global['support_email'] = $admin['support_email'];
 $global['smtp_mailer'] = getenv("SMTP_MAILER");

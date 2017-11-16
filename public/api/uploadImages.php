@@ -21,9 +21,10 @@ if (empty($_FILES['img']) || empty($_POST['type']) || !in_array($_POST['type'], 
 
     //remove old files
     $old_files = scandir('../assets/images/'.$_POST['type']);
+    chdir('../assets/images/'.$_POST['type']);
     foreach ($old_files as $old_file) {
         if (!is_dir($old_file)) {
-            unlink($global['system_root'].'public/assets/images/'.$_POST['type'].$old_file);
+            unlink($old_file);
         }
     }
 
@@ -39,7 +40,7 @@ if (empty($_FILES['img']) || empty($_POST['type']) || !in_array($_POST['type'], 
         $res->execute($params);
 
         //save new files
-        move_uploaded_file($val['tmp_name'],'../assets/images/'.$_POST['type'].$val['name']);
+        move_uploaded_file($val['tmp_name'],$val['name']);
     }
     $object->success = 1;
 }
