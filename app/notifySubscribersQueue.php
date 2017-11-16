@@ -19,7 +19,7 @@ if (!$currentEmail['queued']) {
     $res->execute([':id' => $currentEmail['id']]);
 
     //get subscribers
-    $sql = "SELECT * FROM subscribes WHERE notice_delivered is NULL AND active = 1 AND created < :emailCreated LIMIT 1";
+    $sql = "SELECT * FROM subscribes WHERE notice_delivered is NULL AND active = 1 AND created < :emailCreated LIMIT 20";//sending via google smtp allow to 500email per one day
     $res = $global['pdo']->prepare($sql);
     $res->execute([':emailCreated' => $currentEmail['created']]);
     $subscribers = $res->fetchAll(PDO::FETCH_ASSOC);
