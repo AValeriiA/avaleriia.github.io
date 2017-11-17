@@ -7,13 +7,13 @@
         $citations[] = $row;
     }
 
-    $sql = "SELECT * FROM images WHERE thumbnail = 0";
+    $sql = "SELECT * FROM images WHERE thumbnail = 0 ORDER BY id";
     $res = $global['pdo']->query($sql);
     while ($row = $res->fetch_assoc()) {
         $screenshots[] = $row;
     }
 
-    $sql = "SELECT * FROM images WHERE thumbnail = 1 LIMIT 4";
+    $sql = "SELECT * FROM images WHERE thumbnail = 1 ORDER BY id LIMIT 4";
     $res = $global['pdo']->query($sql);
     while ($row = $res->fetch_assoc()) {
         $thumbnails[] = $row;
