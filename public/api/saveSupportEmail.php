@@ -11,7 +11,7 @@ if (empty($_POST['email'])) {
 
 } else {
     $sql = "UPDATE admins SET support_email = '".htmlspecialchars(addslashes($_POST['email']))."'";
-    if (!$global['pdo']->prepare($sql)) {
+    if (!$global['pdo']->query($sql)) {
         $msg = "Save error! Incorrect data!";
     } else {
         $msg = "Success!";
