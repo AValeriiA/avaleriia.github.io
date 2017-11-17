@@ -1,7 +1,4 @@
 <?php
-    require_once "../../vendor/autoload.php";
-    require_once "../../app/models/Mailer.php";
-
     require_once "../../app/kernel.php";
     if (!Admin::isLogged()) {
         header("location: login.php");

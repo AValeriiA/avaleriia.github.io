@@ -10,7 +10,7 @@ header('Location: ' . $global['website_root'] . 'admin');
 
 $object = new stdClass();
 
-if (empty($_FILES['img']) || empty($_POST['type']) || !in_array($_POST['type'], ['screenshots/', 'thumbnails/'])){
+if (empty($_FILES['img']) || empty($_POST['type']) || !in_array($_POST['type'], array('screenshots/', 'thumbnails/'))){
     $object->error = "Images are empty or type is incorrect!";
 
 } else {
@@ -31,10 +31,10 @@ if (empty($_FILES['img']) || empty($_POST['type']) || !in_array($_POST['type'], 
     $file_arr = reArrayFiles($_FILES['img']);
     foreach($file_arr as $val) {
         //add new files to DB
-        $params = [
+        $params = array(
             ':filename' => $val['name'],
             ':size' => $val['size']
-        ];
+        );
         $sql = "INSERT INTO images (filename, thumbnail, size) VALUES (:filename, ".($_POST['type'] == 'screenshots/' ? "0" : "1").", :size)";
         $res = $global['pdo']->prepare($sql);
         $res->execute($params);

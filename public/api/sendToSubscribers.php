@@ -15,9 +15,9 @@ if (empty($_POST['email']) || empty($_POST['mode'])){
 
 } else {
     if ($_POST['mode'] == "new") {
-        $params = [
+        $params = array(
             ':email' => $_POST['email']
-        ];
+        );
         $sql = "INSERT INTO emails (body) VALUES (:email)";
         $res = $global['pdo']->prepare($sql);
         $res->execute($params);
@@ -27,9 +27,9 @@ if (empty($_POST['email']) || empty($_POST['mode'])){
         $res = $global['pdo']->prepare($sql);
         $res->execute();
     } else {
-        $params = [
+        $params = array(
             ':email' => $_POST['email']
-        ];
+        );
         $sql = "UPDATE emails SET body = :email WHERE is_greeting = 1";
         $res = $global['pdo']->prepare($sql);
         $res->execute($params);

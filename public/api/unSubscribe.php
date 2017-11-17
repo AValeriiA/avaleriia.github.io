@@ -14,10 +14,10 @@ if (empty($_GET['e']) || empty($_GET['c'])){
         $object->error = "Incorrect email format";
 
     } else {
-        $params = [
+        $params = array(
             ':email' => $_GET['e'],
             ':code' => $_GET['c']
-        ];
+        );
         $sql = "UPDATE subscribes SET active = 0 WHERE email = :email AND code = :code";
 
         $res = $global['pdo']->prepare($sql);

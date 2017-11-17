@@ -29,7 +29,7 @@ class Admin
     public static function find($name) {
         global $global;
 
-        $params = [':name' => $name];
+        $params = array(':name' => $name);
         $sql = "SELECT * FROM admins WHERE name = :name LIMIT 1";
 
         $res = $global['pdo']->prepare($sql);
@@ -42,7 +42,7 @@ class Admin
     public static function setLastLogin($name) {
         global $global;
 
-        $params = [':name' => $name];
+        $params = array(':name' => $name);
         $sql = "UPDATE admins SET last_login = now() WHERE name = :name";
 
         $res = $global['pdo']->prepare($sql);

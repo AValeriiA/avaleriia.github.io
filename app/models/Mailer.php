@@ -13,12 +13,12 @@ class Mailer {
         if ($isSMTP) {
             //send via SMTP
             $mailer->isSMTP();
-            $mailer->Host = getenv('SMTP_HOST');
+            $mailer->Host = $global['smtp_host'];
             $mailer->SMTPAuth = true;
-            $mailer->Username = getenv('SMTP_USER');
-            $mailer->Password = getenv('SMTP_PASS');
+            $mailer->Username = $global['smtp_user'];
+            $mailer->Password = $global['smtp_pass'];
             $mailer->SMTPSecure = 'ssl';
-            $mailer->Port = getenv('SMTP_PORT');
+            $mailer->Port = $global['smtp_port'];
         } else {
             //send via standard PHP mail()
             $mailer->isMail();

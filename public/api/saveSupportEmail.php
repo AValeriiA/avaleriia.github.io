@@ -10,9 +10,9 @@ if (empty($_POST['email'])) {
     $msg = "Support email is empty!";
 
 } else {
-    $params = [
+    $params = array(
         ':email' => htmlspecialchars($_POST['email'])
-    ];
+    );
     $sql = "UPDATE admins SET support_email = :email";
     $res = $global['pdo']->prepare($sql);
     if (!$res->execute($params)) {

@@ -1,4 +1,6 @@
 <?php
+define(__DIR__, dirname(__FILE__));
+
 require_once "../../vendor/autoload.php";
 require_once "../../app/models/Mailer.php";
 
@@ -14,7 +16,7 @@ if (empty($_POST['email'])){
         $object->error = "Incorrect email format";
 
     } else {
-        $params = [':email' => $_POST['email']];
+        $params = array(':email' => $_POST['email']);
         $sql = "SELECT * FROM subscribes WHERE email = :email LIMIT 1";
 
         $res = $global['pdo']->prepare($sql);
@@ -28,10 +30,10 @@ if (empty($_POST['email'])){
         } else {
             //save inactive subscribe to DB
             $code = password_hash($_POST['email']."X12_dtyR", PASSWORD_BCRYPT);
-            $params = [
+            $params = array(
                 ':email' => $_POST['email'],
                 ':code' => $code
-            ];
+            );
             $sql = "INSERT INTO subscribes (email, code, active) VALUES (:email, :code, 0)";
 
             $res = $global['pdo']->prepare($sql);

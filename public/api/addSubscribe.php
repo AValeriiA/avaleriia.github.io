@@ -1,6 +1,4 @@
 <?php
-require_once "../../vendor/autoload.php";
-require_once "../../app/models/Mailer.php";
 
 require_once "../../app/kernel.php";
 
@@ -15,10 +13,10 @@ if (empty($_GET['e']) || empty($_GET['c']) || !password_verify($_GET['e']."X12_d
 
     } else {
         //activate subscribe
-        $params = [
+        $params = array(
             ':email' => $_GET['e'],
             ':code' => $_GET['c']
-        ];
+        );
         $sql = "UPDATE subscribes SET active = 1 WHERE email = :email AND code = :code";
 
         $res = $global['pdo']->prepare($sql);

@@ -19,10 +19,10 @@ if (empty($_FILES['img'])){
     $file_arr = reArrayFiles($_FILES['img']);
     foreach($file_arr as $val) {
         //add new files to DB
-        $params = [
+        $params = array(
             ':filename' => $val['name'],
             ':size' => $val['size']
-        ];
+        );
         $sql = "INSERT INTO images (filename, thumbnail, size) VALUES (:filename, 2, :size)";
         $res = $global['pdo']->prepare($sql);
         $res->execute($params);

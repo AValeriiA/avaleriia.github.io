@@ -1,4 +1,6 @@
 <?php
+define(__DIR__, dirname(__FILE__));
+
 require_once "../../vendor/autoload.php";
 require_once "../../app/models/Mailer.php";
 
@@ -15,11 +17,11 @@ if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['message']))
 
     } else {
         //save request to DB
-        $params = [
+        $params = array(
             ':name' => htmlspecialchars($_POST['name']),
             ':email' => $_POST['email'],
             ':text' => htmlspecialchars($_POST['message'])
-        ];
+        );
         $sql = "INSERT INTO contacts (name, email, text) VALUES (:name, :email, :text)";
 
         $res = $global['pdo']->prepare($sql);
