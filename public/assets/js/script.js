@@ -75,6 +75,10 @@ $(document).ready(function () {
     // Activate Carousel
     $('.carousel').carousel();
 
+    $('.js-screenshots-slide').on("click", function (e) {
+        $('#screenshotsCarousel').carousel( $(e.currentTarget).data('frame') );
+    });
+
     $("video.header-video").get(0).play();
 
     swal.setDefaults({

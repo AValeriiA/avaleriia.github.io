@@ -158,13 +158,17 @@
           </div>
           <div class="col-lg-5 text-center">
             <ul class="img-list">
-                <?php foreach ($thumbnails as $thumb) {?>
+                <?php
+                $idx = 0;
+                foreach ($thumbnails as $thumb) {?>
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#modalSlider">
+                        <a href="#" class="js-screenshots-slide" data-toggle="modal" data-target="#modalSlider" data-frame="<?php echo $idx ?>">
                             <img src="./assets/images/thumbnails/<?php echo $thumb['filename']; ?>" alt="">
                         </a>
                     </li>
-                <?php } ?>
+                <?php
+                    $idx++;
+                } ?>
             </ul>
             <div class="bottom-text">
               <p>Summer Catchers is an arcade video game with adventure elements about a northern girl and her epic journey to the South an summer warm.</p>
@@ -231,8 +235,7 @@
           <img src="./assets/images/close-icon.png" alt="" class="close-icon">
         </button>
         <div class="modal-body">
-
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div id="screenshotsCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
                 <?php
                 $first = 1;
@@ -246,10 +249,10 @@
                 }
                 ?>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#screenshotsCarousel" role="button" data-slide="prev">
               <img src="./assets/images/arrow-left.png" alt="">
             </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#screenshotsCarousel" role="button" data-slide="next">
               <img src="./assets/images/arrow-right.png" alt="">
             </a>
           </div>
