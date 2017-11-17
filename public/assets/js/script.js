@@ -97,7 +97,7 @@ $(document).ready(function () {
             type: 'post',
             success: function (response) {
                 if (!response.error) {
-                    swal("Succes", "We will respond to you as soon as possible", "success");
+                    swal("Succes", "We will respond to you as soon as possible.", "success");
                 } else {
                     swal("ERROR", response.error, "error");
                 }
@@ -113,14 +113,15 @@ $(document).ready(function () {
     $("#newsletter-form-btn").on("click", function () {
         $("#contact-form-btn").prop("disabled", true);
         $.ajax({
-            url: "api/addSubscribe.php",
+            url: "api/confirmSubscribe.php",
             data: {
                 "email": $('#newsletter_email').val()
             },
             type: 'post',
             success: function (response) {
+                response = JSON.parse(response);
                 if (!response.error) {
-                    swal("Succes", "You successfully subscribed", "success");
+                    swal("Succes", "We sent confirmation for subscribing to your email.", "success");
                 } else {
                     swal("ERROR", response.error, "error");
                 }
