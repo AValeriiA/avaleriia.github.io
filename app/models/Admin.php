@@ -15,7 +15,7 @@ class Admin
     public static function login($name, $pass) {
         $user = Admin::find($name);
 
-        if ($user && password_verify($pass, $user['pass'])) {
+        if ( $user && (hash("sha256",$pass) == $user['pass']) ) {
             $_SESSION["user"] = $user;
             Admin::setLastLogin($name);
             $success = 1;

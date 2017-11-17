@@ -5,9 +5,6 @@ if (!defined(__DIR__)) {
 
 require_once __DIR__."/kernel.php";
 
-require_once __DIR__."/../vendor/autoload.php";
-require_once __DIR__."/models/Mailer.php";
-
 set_time_limit(14400);
 
 $sql = "SELECT * FROM emails WHERE is_greeting = 0 ORDER BY created DESC LIMIT 1";

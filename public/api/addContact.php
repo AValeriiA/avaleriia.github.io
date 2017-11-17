@@ -2,9 +2,6 @@
 
 require_once "../../app/kernel.php";
 
-require_once "../../vendor/autoload.php";
-require_once "../../app/models/Mailer.php";
-
 $object = new stdClass();
 
 if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['message'])){

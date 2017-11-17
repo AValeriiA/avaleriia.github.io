@@ -25,7 +25,11 @@
     $noticeUnDelivered = $res->fetch_assoc();
     $noticeUnDelivered = $noticeUnDelivered ? $noticeUnDelivered['undelivered'] : 0;
 
-    $percent = ($noticeDelivered / ($noticeDelivered + $noticeUnDelivered)) * 100;
+    if ($noticeDelivered + $noticeUnDelivered) {
+        $percent = ($noticeDelivered / ($noticeDelivered + $noticeUnDelivered)) * 100;
+    } else {
+        $percent = 0;
+    }
 
     $sql = "SELECT * FROM images WHERE thumbnail = 2";
     $res = $global['pdo']->query($sql);

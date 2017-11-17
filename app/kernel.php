@@ -5,6 +5,9 @@ if (!defined(__DIR__)) {
 
 //classes load
 require_once __DIR__."/models/Admin.php";
+require_once __DIR__."/models/PHPMailer.php";
+require_once __DIR__."/models/SMTP.php";
+require_once __DIR__."/models/Mailer.php";
 
 //load env
 $env_arr = file_get_contents(__DIR__ . "/../.env");

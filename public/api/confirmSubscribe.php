@@ -2,9 +2,6 @@
 
 require_once "../../app/kernel.php";
 
-require_once "../../vendor/autoload.php";
-require_once "../../app/models/Mailer.php";
-
 $object = new stdClass();
 
 if (empty($_POST['email'])){
@@ -24,7 +21,7 @@ if (empty($_POST['email'])){
 
         } else {
             //save inactive subscribe to DB
-            $code = password_hash($_POST['email']."X12_dtyR", PASSWORD_BCRYPT);
+            $code = hash("sha256",$_POST['email']."X12_dtyR");
             $sql = "INSERT INTO subscribes (email, code, active) VALUES ('".addslashes($_POST['email'])."', '".$code."', 0)";
             $object->success = $global['pdo']->query($sql);
 

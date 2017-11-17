@@ -4,7 +4,7 @@ require_once "../../app/kernel.php";
 
 $object = new stdClass();
 
-if (empty($_GET['e']) || empty($_GET['c']) || !password_verify($_GET['e']."X12_dtyR", $_GET['c'])){
+if (empty($_GET['e']) || empty($_GET['c']) || !(hash("sha256",$_GET['e']."X12_dtyR") == $_GET['c'])){
     $object->error = "Incorrect data";
 
 } else {
