@@ -17,10 +17,9 @@ if (empty($_GET['e']) || empty($_GET['c']) || !password_verify($_GET['e']."X12_d
             ':email' => $_GET['e'],
             ':code' => $_GET['c']
         );
-        $sql = "UPDATE subscribes SET active = 1 WHERE email = :email AND code = :code";
+        $sql = "UPDATE subscribes SET active = 1 WHERE email = '".$_GET['e']."' AND code = '".$_GET['c']."'";
 
-        $res = $global['pdo']->prepare($sql);
-        $object->success = $res->execute($params);
+        $object->success = $global['pdo']->query($sql);
     }
 }
 

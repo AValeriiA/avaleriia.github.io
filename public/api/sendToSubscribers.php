@@ -15,24 +15,15 @@ if (empty($_POST['email']) || empty($_POST['mode'])){
 
 } else {
     if ($_POST['mode'] == "new") {
-        $params = array(
-            ':email' => $_POST['email']
-        );
-        $sql = "INSERT INTO emails (body) VALUES (:email)";
-        $res = $global['pdo']->prepare($sql);
-        $res->execute($params);
+        $sql = "INSERT INTO emails (body) VALUES ('".addslashes($_POST['email'])."')";
+        $res = $global['pdo']->query($sql);
 
         //update subscribe status for new email
         $sql = "UPDATE subscribes SET notice_delivered = NULL";
-        $res = $global['pdo']->prepare($sql);
-        $res->execute();
+        $res = $global['pdo']->query($sql);
     } else {
-        $params = array(
-            ':email' => $_POST['email']
-        );
-        $sql = "UPDATE emails SET body = :email WHERE is_greeting = 1";
-        $res = $global['pdo']->prepare($sql);
-        $res->execute($params);
+        $sql = "UPDATE emails SET body = '".addslashes($_POST['email'])."' WHERE is_greeting = 1";
+        $res = $global['pdo']->query($sql);
     }
 
     $object->success = 1;

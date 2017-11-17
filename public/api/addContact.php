@@ -1,10 +1,9 @@
 <?php
-define(__DIR__, dirname(__FILE__));
+
+require_once "../../app/kernel.php";
 
 require_once "../../vendor/autoload.php";
 require_once "../../app/models/Mailer.php";
-
-require_once "../../app/kernel.php";
 
 $object = new stdClass();
 
@@ -17,15 +16,8 @@ if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['message']))
 
     } else {
         //save request to DB
-        $params = array(
-            ':name' => htmlspecialchars($_POST['name']),
-            ':email' => $_POST['email'],
-            ':text' => htmlspecialchars($_POST['message'])
-        );
-        $sql = "INSERT INTO contacts (name, email, text) VALUES (:name, :email, :text)";
-
-        $res = $global['pdo']->prepare($sql);
-        $res->execute($params);
+        $sql = "INSERT INTO contacts (name, email, text) VALUES ('".htmlspecialchars($_POST['name'])."', '".$_POST['email']."', '".htmlspecialchars($_POST['message'])."')";
+        $res = $global['pdo']->query($sql);
 
         //create email body
         $html = "<p><b>Name: </b>".htmlspecialchars($_POST['name'])."</p>";

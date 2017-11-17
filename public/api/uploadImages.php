@@ -16,8 +16,7 @@ if (empty($_FILES['img']) || empty($_POST['type']) || !in_array($_POST['type'], 
 } else {
     //remove old data in DB
     $sql = "DELETE FROM images WHERE thumbnail = " . ($_POST['type'] == 'screenshots/' ? "0" : "1");
-    $res = $global['pdo']->prepare($sql);
-    $res->execute();
+    $res = $global['pdo']->query($sql);
 
     //remove old files
     $old_files = scandir('../assets/images/'.$_POST['type']);
@@ -31,13 +30,8 @@ if (empty($_FILES['img']) || empty($_POST['type']) || !in_array($_POST['type'], 
     $file_arr = reArrayFiles($_FILES['img']);
     foreach($file_arr as $val) {
         //add new files to DB
-        $params = array(
-            ':filename' => $val['name'],
-            ':size' => $val['size']
-        );
-        $sql = "INSERT INTO images (filename, thumbnail, size) VALUES (:filename, ".($_POST['type'] == 'screenshots/' ? "0" : "1").", :size)";
-        $res = $global['pdo']->prepare($sql);
-        $res->execute($params);
+        $sql = "INSERT INTO images (filename, thumbnail, size) VALUES ('".$val['name']."', ".($_POST['type'] == 'screenshots/' ? "0" : "1").", ".$val['size'].")";
+        $res = $global['pdo']->query($sql);
 
         //save new files
         move_uploaded_file($val['tmp_name'],$val['name']);

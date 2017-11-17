@@ -29,23 +29,19 @@ class Admin
     public static function find($name) {
         global $global;
 
-        $params = array(':name' => $name);
-        $sql = "SELECT * FROM admins WHERE name = :name LIMIT 1";
+        $sql = "SELECT * FROM admins WHERE name = '".addslashes($name)."' LIMIT 1";
 
-        $res = $global['pdo']->prepare($sql);
-        $res->execute($params);
+        $res = $global['pdo']->query($sql);
 
-        $user = $res->fetch(PDO::FETCH_ASSOC);
+        $user = $res->fetch_assoc();
         return $user ? $user : false;
     }
 
     public static function setLastLogin($name) {
         global $global;
 
-        $params = array(':name' => $name);
-        $sql = "UPDATE admins SET last_login = now() WHERE name = :name";
+        $sql = "UPDATE admins SET last_login = now() WHERE name = '".addslashes($name)."'";
 
-        $res = $global['pdo']->prepare($sql);
-        return $res->execute($params);
+        return $global['pdo']->query($sql);
     }
 }

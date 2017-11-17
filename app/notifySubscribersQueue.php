@@ -1,5 +1,7 @@
 <?php
-define(__DIR__, dirname(__FILE__));
+if (!defined(__DIR__)) {
+    define(__DIR__, dirname(__FILE__));
+}
 
 require_once __DIR__."/kernel.php";
 
@@ -9,21 +11,20 @@ require_once __DIR__."/models/Mailer.php";
 set_time_limit(14400);
 
 $sql = "SELECT * FROM emails WHERE is_greeting = 0 ORDER BY created DESC LIMIT 1";
-$res = $global['pdo']->prepare($sql);
-$res->execute();
-$currentEmail = $res->fetch(PDO::FETCH_ASSOC);
+$res = $global['pdo']->query($sql);
+$currentEmail = $res->fetch_assoc();
 
 if (!$currentEmail['queued']) {
     //set email to queued (only one queue can work on email)
-    $sql = "UPDATE emails SET queued = 1 WHERE id = :id";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute([':id' => $currentEmail['id']]);
+    $sql = "UPDATE emails SET queued = 1 WHERE id = ".$currentEmail['id'];
+    $res = $global['pdo']->query($sql);
 
     //get subscribers
-    $sql = "SELECT * FROM subscribes WHERE notice_delivered is NULL AND active = 1 AND created < :emailCreated LIMIT 20";//sending via google smtp allow to 500email per one day
-    $res = $global['pdo']->prepare($sql);
-    $res->execute([':emailCreated' => $currentEmail['created']]);
-    $subscribers = $res->fetchAll(PDO::FETCH_ASSOC);
+    $sql = "SELECT * FROM subscribes WHERE notice_delivered is NULL AND active = 1 AND created < '".$currentEmail['created']."' LIMIT 20";//sending via google smtp allow to 500email per one day
+    $res = $global['pdo']->query($sql);
+    while ($row = $res->fetch_assoc()) {
+        $subscribers[] = $row;
+    }
 
     foreach ($subscribers as $subscribe) {
         $unsubLink = $global['website_root']."api/unSubscribe.php?e=".$subscribe['email']."&c=".$subscribe['code'];
@@ -38,16 +39,11 @@ if (!$currentEmail['queued']) {
         $sent = $mailer->send($subscribe['email'], "New from ".$global['website_root'], $html);
 
         //save result
-        $sql = "UPDATE subscribes SET notice_delivered = :sent WHERE id = :id";
-        $res = $global['pdo']->prepare($sql);
-        $res->execute([
-            ':sent' => (int)$sent,
-            ':id' => $subscribe['id']
-        ]);
+        $sql = "UPDATE subscribes SET notice_delivered = ".(int)$sent." WHERE id = ".$subscribe['id'];
+        $global['pdo']->query($sql);
 
         //unset email queued
-        $sql = "UPDATE emails SET queued = 0 WHERE id = :id";
-        $res = $global['pdo']->prepare($sql);
-        $res->execute([':id' => $currentEmail['id']]);
+        $sql = "UPDATE emails SET queued = 0 WHERE id = ".$currentEmail['id'];
+        $global['pdo']->query($sql);
     }
 }

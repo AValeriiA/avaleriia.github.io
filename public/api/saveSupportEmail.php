@@ -10,15 +10,12 @@ if (empty($_POST['email'])) {
     $msg = "Support email is empty!";
 
 } else {
-    $params = array(
-        ':email' => htmlspecialchars($_POST['email'])
-    );
-    $sql = "UPDATE admins SET support_email = :email";
-    $res = $global['pdo']->prepare($sql);
-    if (!$res->execute($params)) {
+    $sql = "UPDATE admins SET support_email = '".htmlspecialchars(addslashes($_POST['email']))."'";
+    if (!$global['pdo']->prepare($sql)) {
         $msg = "Save error! Incorrect data!";
+    } else {
+        $msg = "Success!";
     }
-    $msg = "Success!";
 }
 
 header('Location: ' . $global['website_root'] . 'admin/?msg='.$msg);

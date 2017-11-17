@@ -1,23 +1,23 @@
 <?php
     require_once "../app/kernel.php";
 
-
     $sql = "SELECT * FROM citations LIMIT 3";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute($params);
-    $citations = $res->fetchAll(PDO::FETCH_ASSOC);
-
+    $res = $global['pdo']->query($sql);
+    while ($row = $res->fetch_assoc()) {
+        $citations[] = $row;
+    }
 
     $sql = "SELECT * FROM images WHERE thumbnail = 0";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute();
-    $screenshots = $res->fetchAll(PDO::FETCH_ASSOC);
-
+    $res = $global['pdo']->query($sql);
+    while ($row = $res->fetch_assoc()) {
+        $screenshots[] = $row;
+    }
 
     $sql = "SELECT * FROM images WHERE thumbnail = 1 LIMIT 4";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute($params);
-    $thumbnails = $res->fetchAll(PDO::FETCH_ASSOC);
+    $res = $global['pdo']->query($sql);
+    while ($row = $res->fetch_assoc()) {
+        $thumbnails[] = $row;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

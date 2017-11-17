@@ -1,5 +1,7 @@
 <?php
-define(__DIR__, dirname(__FILE__));
+if (!defined(__DIR__)) {
+    define(__DIR__, dirname(__FILE__));
+}
 
 //classes load
 require_once __DIR__."/models/Admin.php";
@@ -21,13 +23,12 @@ $mysqlPass = $envs['MYSQL_PASS'];
 
 global $global;
 
-$global['pdo'] = new PDO("mysql:host=".$mysqlHost."; port=3306; dbname=".$mysqlDatabase.";", $mysqlUser,$mysqlPass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+$global['pdo'] = new mysqli($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDatabase);//new PDO("mysql:host=".$mysqlHost."; port=3306; dbname=".$mysqlDatabase.";", $mysqlUser,$mysqlPass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 
 $sql = "SELECT * FROM admins LIMIT 1";
-$res = $global['pdo']->prepare($sql);
-$res->execute();
-$admin = $res->fetch(PDO::FETCH_ASSOC);
+$res = $global['pdo']->query($sql);
+$admin = $res->fetch_assoc();
 
 $global['website_root'] = $envs["WEBSITE_ROOT_PATH"];
 $global['support_email'] = $admin['support_email'];

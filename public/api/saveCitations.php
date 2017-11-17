@@ -11,18 +11,14 @@ if (empty($_POST['cit'])) {
 
 } else {
     foreach($_POST['cit'] as $id => $citate) {
-        $params = array(
-            ':id' => $id,
-            ':text' => $citate['text'],
-            ':who' => $citate['who']
-        );
-        $sql = "UPDATE citations SET text = :text, who = :who WHERE id = :id";
-        $res = $global['pdo']->prepare($sql);
-        if (!$res->execute($params)) {
+        $sql = "UPDATE citations SET text = '".addslashes($citate['text'])."', who = '".addslashes($citate['who'])."' WHERE id = ".(int)$id;
+        if (!$global['pdo']->query($sql)) {
             $msg = "Save error! Incorrect data!";
+            break;
+        } else {
+            $msg = "Success!";
         }
     }
-    $msg = "Success!";
 }
 
 header('Location: ' . $global['website_root'] . 'admin/?msg='.$msg);

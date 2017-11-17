@@ -6,31 +6,32 @@
     }
 
     $sql = "SELECT * FROM citations LIMIT 3";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute($params);
-    $citations = $res->fetchAll(PDO::FETCH_ASSOC);
+    $res = $global['pdo']->query($sql);
+    while ($row = $res->fetch_assoc()) {
+        $citations[] = $row;
+    }
 
     $sql = "SELECT * FROM emails WHERE is_greeting = 1 ORDER BY created DESC LIMIT 1";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute();
-    $currentGreeting = $res->fetch(PDO::FETCH_ASSOC);
+    $res = $global['pdo']->query($sql);
+    $currentGreeting = $res->fetch_assoc();
 
     $sql = "SELECT count(id) as delivered FROM subscribes WHERE notice_delivered = 1 GROUP BY notice_delivered";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute();
-    $noticeDelivered = $res->fetch(PDO::FETCH_COLUMN);
+    $res = $global['pdo']->query($sql);
+    $noticeDelivered = $res->fetch_assoc();
+    $noticeDelivered = $noticeDelivered ? $noticeDelivered['delivered'] : 0;
 
     $sql = "SELECT count(id) as undelivered FROM subscribes WHERE notice_delivered = 0 GROUP BY notice_delivered";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute();
-    $noticeUnDelivered = $res->fetch(PDO::FETCH_COLUMN);
+    $res = $global['pdo']->query($sql);
+    $noticeUnDelivered = $res->fetch_assoc();
+    $noticeUnDelivered = $noticeUnDelivered ? $noticeUnDelivered['undelivered'] : 0;
 
     $percent = ($noticeDelivered / ($noticeDelivered + $noticeUnDelivered)) * 100;
 
     $sql = "SELECT * FROM images WHERE thumbnail = 2";
-    $res = $global['pdo']->prepare($sql);
-    $res->execute();
-    $imagesForEmails = $res->fetchAll(PDO::FETCH_ASSOC);
+    $res = $global['pdo']->query($sql);
+    while ($row = $res->fetch_assoc()) {
+        $imagesForEmails[] = $row;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -228,7 +229,7 @@
                 type: 'post',
                 success: function (response) {
                     if (!response.error) {
-                        alert("Email has been successfully put in the send queue!");
+                        alert(mode == "new" ? "Email has been successfully put in the send queue!" : "Confirmation email is saved!");
                         $("#send_email").prop("disabled", false);
                     } else {
                         alert("ERROR: " + response.error);
