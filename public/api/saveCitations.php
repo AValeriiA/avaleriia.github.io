@@ -11,7 +11,7 @@ if (empty($_POST['cit'])) {
 
 } else {
     foreach($_POST['cit'] as $id => $citate) {
-        $sql = "UPDATE citations SET text = '".addslashes($citate['text'])."', who = '".addslashes($citate['who'])."' WHERE id = ".(int)$id;
+        $sql = "UPDATE citations SET text = '".($citate['text'])."', who = '".($citate['who'])."' WHERE id = ".(int)$id;
         if (!$global['pdo']->query($sql)) {
             $msg = "Save error! Incorrect data!";
             break;

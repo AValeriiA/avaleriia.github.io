@@ -347,6 +347,9 @@ section.video-wrap {
   .video-main-layer{
     background: url('../images/video-layer-bd.jpg') top center no-repeat;
     padding: 40px 90px 100px;
+    @media (min-width: 1920px) {
+      background-size: cover;
+    }
     @media(max-width:992px){
       background-size:cover;
       padding: 20px 30px 50px;
@@ -360,6 +363,13 @@ section.video-wrap {
     >.row{
       margin-right: -37px;
       margin-left: -37px;
+      >.col-lg-7 {
+        @media (min-width: 1920px) {
+          max-width: 42%;
+          margin-right: 3%;
+          margin-left: 7%;
+        }
+      }
       @media(min-width: 993px){
         >[class^=col-]{
           padding-right: 37px;
