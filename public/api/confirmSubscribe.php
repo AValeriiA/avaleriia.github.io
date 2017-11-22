@@ -35,7 +35,7 @@ if (empty($_POST['email'])){
             $html .= "<a href='".$subLink."'>Subscribe to ".$global['website_root']."</a>";
 
             //send email
-            $mailer = new Mailer($global['smtp_mailer']);
+            $mailer = new Mailer("send", $global['smtp_mailer']);
             $object->success = $mailer->send($_POST['email'], "Confirm your subscription to ".$global['website_root'], $html);
         }
     }

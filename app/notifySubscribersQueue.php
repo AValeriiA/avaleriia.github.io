@@ -32,7 +32,7 @@ if (!$currentEmail['queued']) {
         $html .= "<a href='".$unsubLink."'>Unsubscribe from ".$global['website_root']."</a>";
 
         //send email
-        $mailer = new Mailer($global['smtp_mailer']);
+        $mailer = new Mailer("send", $global['smtp_mailer']);
         $sent = $mailer->send($subscribe['email'], "New from ".$global['website_root'], $html);
 
         //save result

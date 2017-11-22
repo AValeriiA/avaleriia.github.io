@@ -3,7 +3,7 @@
 class Mailer {
     private $PHPMailer;
 
-    public function __construct($isSMTP = true) {
+    public function __construct($emailMode = "support", $isSMTP = true) {
         global $global;
 
         $mailer = new PHPMailer();
@@ -12,15 +12,15 @@ class Mailer {
             $mailer->isSMTP();
             $mailer->Host = $global['smtp_host'];
             $mailer->SMTPAuth = true;
-            $mailer->Username = $global['smtp_user'];
-            $mailer->Password = $global['smtp_pass'];
+            $mailer->Username = ($emailMode == "support" ? $global['support_email'] : $global['send_email']);
+            $mailer->Password = ($emailMode == "support" ? $global['support_pass'] : $global['send_pass']);
             $mailer->SMTPSecure = 'ssl';
             $mailer->Port = $global['smtp_port'];
         } else {
             //send via standard PHP mail()
             $mailer->isMail();
         }
-        $mailer->setFrom($global['support_email']);
+        $mailer->setFrom($emailMode == "support" ? $global['support_email'] : $global['send_email']);
         $mailer->CharSet = 'UTF-8';
         $mailer->isHTML(true);
 

@@ -35,10 +35,11 @@ $admin = $res->fetch_assoc();
 
 $global['website_root'] = $envs["WEBSITE_ROOT_PATH"];
 $global['support_email'] = $admin['support_email'];
+$global['support_pass'] = $admin['support_pass'];
+$global['send_email'] = $admin['send_email'];
+$global['send_pass'] = $admin['send_pass'];
 $global['smtp_mailer'] = $envs["SMTP_MAILER"];
 $global['smtp_host'] = $envs["SMTP_HOST"];
-$global['smtp_user'] = $envs["SMTP_USER"];
-$global['smtp_pass'] = $envs["SMTP_PASS"];
 $global['smtp_port'] = $envs["SMTP_PORT"];
 
 // server should keep session data for AT LEAST 1 month

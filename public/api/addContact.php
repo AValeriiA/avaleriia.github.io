@@ -22,7 +22,7 @@ if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['message']))
         $html .= "<p><b>Message: </b>".nl2br(htmlspecialchars($_POST['message']))."</p>";
 
         //send email
-        $mailer = new Mailer();
+        $mailer = new Mailer("support", $global['smtp_mailer']);
         $object->success = $mailer->send($global['support_email'], "You have a new contact!", $html);
     }
 }

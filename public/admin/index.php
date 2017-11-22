@@ -164,10 +164,37 @@
     <hr>
     <div class="row">
         <div class="col-12">
-            <form action="<?php echo $global['website_root'] ?>api/saveSupportEmail.php" method="post">
-                <div class="form-group row justify-content-center" style="margin-top: 50px;">
-                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Support email is:</div>
+            <div class="form-group row justify-content-center" style="margin-top: 70px;">
+                <button id="edit_support_email" class="btn btn-primary">Support email</button>
+                <button id="edit_send_email" class="btn btn-secondary" style="margin-left: 10px">Send email</button>
+            </div>
+        </div>
+        <div class="col-12">
+            <form action="<?php echo $global['website_root'] ?>api/saveSupportEmail.php" method="post" id="form_support_email">
+                <input type="hidden" name="mode" value="support">
+                <div class="form-group row justify-content-center">
+                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Login:</div>
                     <div class="col-9 col-sm-6 col-lg-4"><input type="email" name="email" class="form-control" value="<?php echo $global['support_email'] ?>" required></div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Pass:</div>
+                    <div class="col-9 col-sm-6 col-lg-4"><input type="password" name="pass" class="form-control" value="<?php echo $global['support_pass'] ?>" required></div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <button type="submit" id="support-email-save" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            <form action="<?php echo $global['website_root'] ?>api/saveSupportEmail.php" method="post" id="form_send_email" style="display: none;">
+                <input type="hidden" name="mode" value="send">
+                <div class="form-group row justify-content-center">
+                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Login:</div>
+                    <div class="col-9 col-sm-6 col-lg-4"><input type="email" name="email" class="form-control" value="<?php echo $global['send_email'] ?>" required></div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Pass:</div>
+                    <div class="col-9 col-sm-6 col-lg-4"><input type="password" name="pass" class="form-control" value="<?php echo $global['send_pass'] ?>" required></div>
+                </div>
+                <div class="form-group row justify-content-center">
                     <button type="submit" id="support-email-save" class="btn btn-primary">Save</button>
                 </div>
             </form>
@@ -258,6 +285,22 @@
             $("#edit_msg_tab").removeClass("btn-secondary").addClass("btn-primary");
             $("#new_msg_tab").removeClass("btn-primary").addClass("btn-secondary");
         });
+
+
+        $("#edit_support_email").on("click", function () {
+            $("#form_send_email").hide();
+            $("#form_support_email").show();
+            $("#edit_support_email").removeClass("btn-secondary").addClass("btn-primary");
+            $("#edit_send_email").removeClass("btn-primary").addClass("btn-secondary");
+        });
+
+        $("#edit_send_email").on("click", function () {
+            $("#form_support_email").hide();
+            $("#form_send_email").show();
+            $("#edit_send_email").removeClass("btn-secondary").addClass("btn-primary");
+            $("#edit_support_email").removeClass("btn-primary").addClass("btn-secondary");
+        });
+
 
         CKEDITOR.replace('edit_email_text', {
             allowedContent: true

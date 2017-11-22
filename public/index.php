@@ -171,7 +171,7 @@
                 } ?>
             </ul>
             <div class="bottom-text">
-              <p>Summer Catchers is an arcade video game with adventure elements about a northern girl and her epic journey to the South an summer warm.</p>
+              <p>Summer Catchers is an arcade video game with adventure elements about a northern girl and her epic journey to the South and summer warm.</p>
               <div class="line-block"></div>
               <p class="smooth-txt">
                   Created by <a href="http://faceit-team.com/">FaceIT</a> development team
