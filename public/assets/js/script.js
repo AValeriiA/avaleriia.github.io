@@ -101,7 +101,7 @@ $(document).ready(function () {
             type: 'post',
             success: function (response) {
                 if (!response.error) {
-                    swal("Succes", "We will respond to you as soon as possible.", "success");
+                    swal("Succes", "We will respond as soon as possible.", "success");
                 } else {
                     swal("ERROR", response.error, "error");
                 }
@@ -125,7 +125,7 @@ $(document).ready(function () {
             success: function (response) {
                 response = JSON.parse(response);
                 if (!response.error) {
-                    swal("Succes", "We sent confirmation for subscribing to your email.", "success");
+                    swal("Succes", "Please check your email and confirm subscription.", "success");
                 } else {
                     swal("ERROR", response.error, "error");
                 }
@@ -146,6 +146,6 @@ $(document).ready(function () {
 
     if (msg) {
         var values = msg.split('=');
-        swal(values[1], "", "success");
+        swal(values[1].replace(/%20/i, ''), "", "success");
     }
 });

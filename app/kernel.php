@@ -38,6 +38,7 @@ $global['support_email'] = $admin['support_email'];
 $global['support_pass'] = $admin['support_pass'];
 $global['send_email'] = $admin['send_email'];
 $global['send_pass'] = $admin['send_pass'];
+$global['video_link'] = $admin['video_link'];
 $global['smtp_mailer'] = $envs["SMTP_MAILER"];
 $global['smtp_host'] = $envs["SMTP_HOST"];
 $global['smtp_port'] = $envs["SMTP_PORT"];

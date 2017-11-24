@@ -15,6 +15,10 @@
     $res = $global['pdo']->query($sql);
     $currentGreeting = $res->fetch_assoc();
 
+    $sql = "SELECT COUNT(id) as subs FROM subscribes WHERE active = 1 GROUP BY active";
+    $res = $global['pdo']->query($sql);
+    $active_subscribers = $res->fetch_assoc();
+
     $sql = "SELECT count(id) as delivered FROM subscribes WHERE notice_delivered = 1 GROUP BY notice_delivered";
     $res = $global['pdo']->query($sql);
     $noticeDelivered = $res->fetch_assoc();
@@ -77,6 +81,15 @@
                         <button type="submit" class="btn btn-primary" id="citations_btn">Save</button>
                     </div>
                 </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form action="<?php echo $global['website_root'] ?>api/saveVideoLink.php" method="post" style="margin-top: 50px" class="col-12">
+            <div class="form-group row justify-content-center">
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2 align-self-center justify-self-end">Video Link:</div>
+                <div class="col-9 col-sm-6 col-lg-4"><input type="text" name="video_link" class="form-control" value="<?php echo $global['video_link'] ?>" required></div>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
@@ -158,6 +171,11 @@
         <div class="col-12">
             <div class="form-group row justify-content-center">
                 Email delivered to <?php echo (int)$percent ?>% of subscribers
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row justify-content-center">
+                Active subscribers: <?php echo $active_subscribers['subs'] ?>
             </div>
         </div>
     </div>

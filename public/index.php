@@ -153,7 +153,7 @@
         <div class="row">
           <div class="col-lg-7">
             <div class="video-block">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/5yZC4RuBX3M" frameborder="0" gesture="media" allowfullscreen></iframe>
+              <iframe width="560" height="315" src="<?php echo $global['video_link']; ?>" frameborder="0" gesture="media" allowfullscreen></iframe>
             </div>
           </div>
           <div class="col-lg-5 text-center">
@@ -184,7 +184,7 @@
               </a>
               <ul class="social-list">
                 <li>
-                  <a href="https://twitter.com/SummerCatchers?lang=ru">
+                  <a href="https://twitter.com/SummerCatchers">
                     <i class="fa fa-twitter"></i>
                   </a>
                 </li>

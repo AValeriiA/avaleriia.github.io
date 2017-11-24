@@ -23,4 +23,4 @@ if (empty($_GET['e']) || empty($_GET['c']) || !(hash("sha256",$_GET['e']."X12_dt
     }
 }
 
-header("location: ../?msg=" . ($object->success ? "Subscribed" : "Error"));
+header("location: ../?msg=" . ($object->success ? "Thank you! We will be in touch." : "Error"));
