@@ -89,7 +89,8 @@ $(document).ready(function () {
         confirmButtonClass: "modal-swal-btn-style"
     });
 
-    $("#contact-form-btn").on("click", function () {
+    $("#contact-form").on("submit", function (e) {
+        e.preventDefault();
         $("#contact-form-btn").prop("disabled", true);
         $.ajax({
             url: "api/addContact.php",
@@ -101,7 +102,7 @@ $(document).ready(function () {
             type: 'post',
             success: function (response) {
                 if (!response.error) {
-                    swal("Succes", "We will respond as soon as possible.", "success");
+                    swal("Success", "We will respond as soon as possible.", "success");
                 } else {
                     swal("ERROR", response.error, "error");
                 }
@@ -112,10 +113,12 @@ $(document).ready(function () {
                 $("#contact-form-btn").prop("disabled", false);
             }
         });
+        return false;
     });
 
-    $("#newsletter-form-btn").on("click", function () {
-        $("#contact-form-btn").prop("disabled", true);
+    $("#newsletter-form").on("submit", function (e) {
+        e.preventDefault();
+        $("#newsletter-form-btn").prop("disabled", true);
         $.ajax({
             url: "api/confirmSubscribe.php",
             data: {
@@ -125,17 +128,18 @@ $(document).ready(function () {
             success: function (response) {
                 response = JSON.parse(response);
                 if (!response.error) {
-                    swal("Succes", "Please check your email and confirm subscription.", "success");
+                    swal("Success", "Please check your email and confirm subscription.", "success");
                 } else {
                     swal("ERROR", response.error, "error");
                 }
-                $("#contact-form-btn").prop("disabled", false);
+                $("#newsletter-form-btn").prop("disabled", false);
             },
             error: function () {
                 swal("Server error!");
-                $("#contact-form-btn").prop("disabled", false);
+                $("#newsletter-form-btn").prop("disabled", false);
             }
         });
+        return false;
     });
 
     var query_str = location.search.substr(1),
@@ -146,6 +150,6 @@ $(document).ready(function () {
 
     if (msg) {
         var values = msg.split('=');
-        swal(values[1].replace(/%20/i, ''), "", "success");
+        swal(values[1].replace(/%20/gi, ' '), "", "success");
     }
 });

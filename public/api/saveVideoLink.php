@@ -10,6 +10,7 @@ if (empty($_POST['video_link'])) {
     $msg = "Fields are empty!";
 
 } else {
+    $_POST['video_link'] = str_replace('watch?v=', 'embed/', $_POST['video_link']);
     $sql = "UPDATE admins SET video_link = '".$_POST['video_link']."'";
 
     if (!$global['pdo']->query($sql)) {

@@ -51,6 +51,9 @@
             <li>
               <img src="./assets/images/awards-logo-2.png" alt="">
             </li>
+            <li>
+              <img src="./assets/images/awards-logo-3.png" alt="">
+            </li>
           </ul>
 
           <h1 class="main-logo">
@@ -82,13 +85,13 @@
                 </ul>
               </div>
               <div class="col-xl-6 col-lg-6">
-                <form class="newsletter-form">
+                <form class="newsletter-form" id="newsletter-form">
                   <div class="d-flex flex-xs-column flex-wrap justify-content-center align-items-center">
                     <div class="f-item">
                       <input type="email" class="form-control" id="newsletter_email" name="email" placeholder="Email Address">
                     </div>
                     <div class="f-item">
-                      <button type="button" class="newsletter-btn" id="newsletter-form-btn">
+                      <button type="submit" class="newsletter-btn" id="newsletter-form-btn">
                         <img src="./assets/images/newsletter-btn.png" alt="">
                       </button>
                       <!-- <button type="submit" class="btn btn-dash-pink">NEWSLETTER SIGN UP <br><span>PARTICIPATE IN ALPHA TESTING</span></button> -->
@@ -204,7 +207,7 @@
         <div class="col-lg-6 col-md-10 text-center">
           <h3 class="contact-title">Contact</h3>
           <div class="line-block"></div>
-          <form class="contact-form">
+          <form class="contact-form" id="contact-form">
             <div class="form-group row">
               <div class="col-md-6">
                 <input class="form-control" type="text" name="name" placeholder="Name" id="contact_name">
@@ -216,7 +219,7 @@
             <div class="form-group">
               <textarea placeholder="Message" class="form-control" name="message" rows="3" id="contact_message"></textarea>
             </div>
-            <button type="button" class="btn btn-dash-pink" id="contact-form-btn">
+            <button type="submit" class="btn btn-dash-pink" id="contact-form-btn">
               <img src="./assets/images/send-btn.png" alt="">
             </button>
           </form>
@@ -267,5 +270,6 @@
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>-->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/1.9.0/jarallax-video.min.js"></script> -->
   <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/additional.js"></script>
 </body>
 </html>
