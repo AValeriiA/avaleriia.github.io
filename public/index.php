@@ -73,7 +73,7 @@
             <div class="row no-gutters justify-content-between align-items-center">
               <div class="col-xl-3 col-lg-3">
                 <ul class="logo-list">
-                  <li><a href="http://steamcommunity.com/sharedfiles/filedetails/?id=651254178">
+                  <li><a href="https://store.steampowered.com/app/908050/Summer_Catchers/">
                     <img src="./assets/images/store-img-1.png" alt="">
                   </a></li>
                   <li style="display: none"><a href="#">
@@ -270,6 +270,13 @@
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>-->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/1.9.0/jarallax-video.min.js"></script> -->
   <script src="./assets/js/script.js"></script>
-  <script src="./assets/js/additional.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122676141-2"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-122676141-2');
+  </script>
 </body>
 </html>
